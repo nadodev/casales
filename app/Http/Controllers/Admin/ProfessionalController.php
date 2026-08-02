@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Professional;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+class ProfessionalController extends Controller {
+ public function index(){return view('admin.professionals.index',['items'=>Professional::orderBy('sort_order')->get()]);}
+ public function create(){return view('admin.professionals.form',['item'=>new Professional]);}
+ public function store(Request $r){Professional::create($this->data($r));return redirect()->route('admin.professionals.index')->with('success','Profissional cadastrado.');}
+ public function edit(Professional $professional){return view('admin.professionals.form',['item'=>$professional]);}
+ public function update(Request $r,Professional $professional){$professional->update($this->data($r,$professional));return redirect()->route('admin.professionals.index')->with('success','Profissional atualizado.');}
+ public function destroy(Professional $professional){if($professional->image_path)Storage::disk('public')->delete($professional->image_path);$professional->delete();return back()->with('success','Profissional removido.');}
+ private function data(Request $r,?Professional $item=null):array{$d=$r->validate(['name'=>'required|max:120','slug'=>['required','max:140','alpha_dash',Rule::unique('professionals')->ignore($item)],'title'=>'required|max:150','registration'=>'nullable|max:80','summary'=>'required|max:600','biography'=>'nullable','specialties_text'=>'nullable','email'=>'nullable|email|max:150','image'=>'nullable|image|max:4096','sort_order'=>'nullable|integer|min:0','is_active'=>'nullable|boolean']);$d['specialties']=array_values(array_filter(array_map('trim',preg_split('/\r\n|\r|\n/',$d['specialties_text']??''))));unset($d['specialties_text']);$d['is_active']=$r->boolean('is_active');if($r->hasFile('image')){if($item?->image_path)Storage::disk('public')->delete($item->image_path);$d['image_path']=$r->file('image')->store('professionals','public');}unset($d['image']);return $d;}
+}

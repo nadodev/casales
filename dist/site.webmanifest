@@ -1,0 +1,13 @@
+{
+  "name": "Casale Saúde Integrada",
+  "short_name": "Casale Saúde",
+  "description": "Odontologia, fisioterapia e acupuntura em Piracicaba.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6F1E7",
+  "theme_color": "#0D493B",
+  "icons": [
+    { "src": "/images/logo-casale.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}
