@@ -23,7 +23,7 @@
                 class="rounded-lg p-3 lg:hidden" data-menu-button aria-expanded="false" aria-controls="main-nav"><span
                     class="sr-only">Abrir menu</span>☰</button>
             <nav id="main-nav" class="hidden lg:block" aria-label="Principal">
-                <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-7"><a class="nav-link"
+                <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-7"><a class="nav-link" href="{{ route('about') }}">Nossa história</a><a class="nav-link"
                         href="{{ route('professionals') }}">Profissionais</a>
                     <div class="relative"><button class="nav-link flex items-center" data-submenu-button
                             aria-expanded="false" aria-controls="treatment-menu">Tratamentos <span>⌄</span></button>
@@ -33,7 +33,7 @@
                                 class="block rounded-lg px-4 py-3 hover:bg-beige-100"
                             href="{{ route('treatments.show', $menuTreatment) }}">{{ $menuTreatment->name }}</a>@endforeach<a
                                 class="block rounded-lg px-4 py-3 hover:bg-beige-100"
-                                href="{{ route('treatments') }}">Ver todos</a></div>
+                                href="{{ route('treatments') }}">Ver todos</a><a class="block rounded-lg px-4 py-3 hover:bg-beige-100" href="{{ route('integrated-care') }}">Cuidado Integrado</a></div>
                     </div><a class="nav-link" href="{{ route('contact') }}">Contato</a><a class="btn-primary"
                         href="https://wa.me/551934242812" target="_blank" rel="noopener">Agendar atendimento</a>
                 </div>

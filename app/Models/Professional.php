@@ -9,11 +9,11 @@ class Professional extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'title', 'registration', 'summary', 'biography', 'specialties', 'email', 'image_path', 'is_active', 'sort_order'];
+    protected $fillable = ['name', 'slug', 'title', 'registration', 'summary', 'biography', 'specialties', 'education', 'experience', 'approach', 'email', 'image_path', 'is_active', 'sort_order'];
 
     protected function casts(): array
     {
-        return ['specialties' => 'array', 'is_active' => 'boolean'];
+        return ['specialties' => 'array', 'education' => 'array', 'experience' => 'array', 'is_active' => 'boolean'];
     }
 
     public function getRouteKeyName(): string { return 'slug'; }
