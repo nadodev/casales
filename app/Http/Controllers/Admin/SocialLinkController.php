@@ -11,5 +11,5 @@ class SocialLinkController extends Controller {
  public function edit(SocialLink $social_link){return view('admin.social-links.form',['item'=>$social_link]);}
  public function update(Request $r,SocialLink $social_link){$social_link->update($this->data($r));return redirect()->route('admin.social-links.index')->with('success','Rede social atualizada.');}
  public function destroy(SocialLink $social_link){$social_link->delete();return back()->with('success','Rede social removida.');}
- private function data(Request $r):array{$d=$r->validate(['platform'=>'required|max:60','label'=>'required|max:100','url'=>'required|url:http,https|max:500','sort_order'=>'nullable|integer|min:0','is_active'=>'nullable|boolean']);$d['is_active']=$r->boolean('is_active');return $d;}
+ private function data(Request $r):array{$d=$r->validate(['platform'=>'required|max:60','label'=>'required|max:100','url'=>'required|url:http,https|max:500','sort_order'=>'nullable|integer|min:0','is_active'=>'nullable|boolean']);$d['sort_order']=$d['sort_order']??0;$d['is_active']=$r->boolean('is_active');return $d;}
 }

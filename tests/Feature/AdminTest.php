@@ -1,7 +1,7 @@
 <?php
 
 namespace Tests\Feature;
-use App\Models\{AboutPage,Professional,SocialLink,Testimonial,Treatment,User};
+use App\Models\{AboutPage,ContactMessage,Professional,SocialLink,Testimonial,Treatment,User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 class AdminTest extends TestCase {
@@ -14,4 +14,6 @@ class AdminTest extends TestCase {
  public function test_clean_public_routes_and_new_pages_are_available():void{$this->seed();$this->get('/profissionais')->assertOk();$this->get('/tratamentos')->assertOk();$this->get('/contato')->assertOk();$this->get('/nossa-historia')->assertOk()->assertSee('Nossa trajetória');$this->get('/cuidado-integrado')->assertOk()->assertSee('Você por inteiro');$this->get('/profissionais.html')->assertNotFound();}
  public function test_admin_can_manage_testimonials_and_about_page():void{$this->seed();$user=User::factory()->create();$this->actingAs($user)->post(route('admin.testimonials.store'),['name'=>'Maria','content'=>'Atendimento muito atencioso e acolhedor.','rating'=>5,'is_active'=>1])->assertRedirect(route('admin.testimonials.index'));$this->assertDatabaseHas('testimonials',['name'=>'Maria']);$this->actingAs($user)->put(route('admin.about.update'),['title'=>'Nossa trajetória','story'=>'Uma história de cuidado.','is_active'=>1])->assertRedirect();$this->assertDatabaseHas('about_pages',['title'=>'Nossa trajetória']);}
  public function test_about_page_has_default_content_before_admin_setup():void{$this->get('/nossa-historia')->assertOk()->assertSee('Nossa história')->assertSee('Nossa trajetória');}
+ public function test_contact_form_stores_message_for_admin():void{$this->post(route('contact.send'),['name'=>'João','email'=>'joao@example.com','phone'=>'(19) 99999-9999','subject'=>'Agendamento','message'=>'Gostaria de informações sobre atendimento.','privacy'=>1])->assertRedirect(route('contact'));$this->assertDatabaseHas('contact_messages',['email'=>'joao@example.com','subject'=>'Agendamento']);$user=User::factory()->create();$message=ContactMessage::first();$this->actingAs($user)->get(route('admin.contact-messages.show',$message))->assertOk()->assertSee('Gostaria de informações');$this->assertNotNull($message->fresh()->read_at);}
+ public function test_testimonial_accepts_empty_sort_order_from_form():void{$user=User::factory()->create();$this->actingAs($user)->post(route('admin.testimonials.store'),['name'=>'Paciente','context'=>'Odontologia','content'=>'Atendimento cuidadoso.','rating'=>5,'sort_order'=>'','is_active'=>1])->assertRedirect(route('admin.testimonials.index'));$this->assertDatabaseHas('testimonials',['name'=>'Paciente','sort_order'=>0]);}
 }

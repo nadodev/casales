@@ -18,6 +18,7 @@ class TestimonialController extends Controller
     {
         $data = $request->validate(['name' => 'required|max:120', 'context' => 'nullable|max:150', 'content' => 'required|max:1200', 'rating' => 'required|integer|between:1,5', 'sort_order' => 'nullable|integer|min:0', 'is_active' => 'nullable|boolean']);
         $data['is_active'] = $request->boolean('is_active');
+        $data['sort_order'] = $data['sort_order'] ?? 0;
         return $data;
     }
 }
