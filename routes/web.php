@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{AboutPageController,AuthController,DashboardController,ProfessionalController,SocialLinkController,TestimonialController,TreatmentController};
+use App\Http\Controllers\Admin\{AboutPageController,AuthController,ContactMessageController,DashboardController,ProfessionalController,SocialLinkController,TestimonialController,TreatmentController};
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +12,7 @@ Route::get('/tratamentos/{treatment:slug}', [SiteController::class, 'treatment']
 Route::get('/nossa-historia', [SiteController::class, 'about'])->name('about');
 Route::get('/cuidado-integrado', [SiteController::class, 'integratedCare'])->name('integrated-care');
 Route::get('/contato', [SiteController::class, 'contact'])->name('contact');
+Route::post('/contato', [SiteController::class, 'sendContact'])->middleware('throttle:5,1')->name('contact.send');
 Route::get('/privacidade', [SiteController::class, 'privacy'])->name('privacy');
 Route::get('/termos', [SiteController::class, 'terms'])->name('terms');
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
@@ -26,4 +27,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
     Route::delete('about/{aboutPage}/photos/{photo}', [AboutPageController::class, 'destroyPhoto'])->name('about.photos.destroy');
     Route::resource('testimonials', TestimonialController::class)->except('show');
+    Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show', 'destroy']);
 });
