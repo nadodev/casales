@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\{AboutPageController,AuthController,ContactMessageController,DashboardController,ProfessionalController,SocialLinkController,TestimonialController,TreatmentController};
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('home');
+Route::get('/media/{path}', MediaController::class)->where('path', '.*')->name('media');
 Route::get('/profissionais', [SiteController::class, 'professionals'])->name('professionals');
 Route::get('/profissionais/{professional:slug}', [SiteController::class, 'professional'])->name('professionals.show');
 Route::get('/tratamentos', [SiteController::class, 'treatments'])->name('treatments');

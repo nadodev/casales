@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 use App\Models\{AboutPage,ContactMessage,Professional,SocialLink,Testimonial,Treatment,User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 class AdminTest extends TestCase {
  use RefreshDatabase;
@@ -16,4 +17,5 @@ class AdminTest extends TestCase {
  public function test_about_page_has_default_content_before_admin_setup():void{$this->get('/nossa-historia')->assertOk()->assertSee('Nossa história')->assertSee('Nossa trajetória');}
  public function test_contact_form_stores_message_for_admin():void{$this->post(route('contact.send'),['name'=>'João','email'=>'joao@example.com','phone'=>'(19) 99999-9999','subject'=>'Agendamento','message'=>'Gostaria de informações sobre atendimento.','privacy'=>1])->assertRedirect(route('contact'));$this->assertDatabaseHas('contact_messages',['email'=>'joao@example.com','subject'=>'Agendamento']);$user=User::factory()->create();$message=ContactMessage::first();$this->actingAs($user)->get(route('admin.contact-messages.show',$message))->assertOk()->assertSee('Gostaria de informações');$this->assertNotNull($message->fresh()->read_at);}
  public function test_testimonial_accepts_empty_sort_order_from_form():void{$user=User::factory()->create();$this->actingAs($user)->post(route('admin.testimonials.store'),['name'=>'Paciente','context'=>'Odontologia','content'=>'Atendimento cuidadoso.','rating'=>5,'sort_order'=>'','is_active'=>1])->assertRedirect(route('admin.testimonials.index'));$this->assertDatabaseHas('testimonials',['name'=>'Paciente','sort_order'=>0]);}
+ public function test_uploaded_public_media_is_served_without_storage_symlink():void{Storage::fake('public');Storage::disk('public')->put('about/photo.jpg','image-content');$this->get('/media/about/photo.jpg')->assertOk()->assertHeader('cache-control','max-age=604800, public');$this->get('/media/about/missing.jpg')->assertNotFound();}
 }
