@@ -33,7 +33,11 @@
                                 class="block rounded-lg px-4 py-3 hover:bg-beige-100"
                             href="{{ route('treatments.show', $menuTreatment) }}">{{ $menuTreatment->name }}</a>@endforeach<a
                                 class="block rounded-lg px-4 py-3 hover:bg-beige-100"
-                                href="{{ route('treatments') }}">Ver todos</a><a class="block rounded-lg px-4 py-3 hover:bg-beige-100" href="{{ route('integrated-care') }}">Cuidado Integrado</a></div>
+                                href="{{ route('integrated-care') }}">Cuidado Integrado</a>
+                            <div class="mt-2 border-t border-green-900/10 pt-2"><a
+                                    class="block rounded-lg px-4 py-3 font-bold text-green-700 hover:bg-beige-100"
+                                    href="{{ route('treatments') }}">Ver todos</a></div>
+                        </div>
                     </div><a class="nav-link" href="{{ route('contact') }}">Contato</a><a class="btn-primary"
                         href="https://wa.me/551934242812" target="_blank" rel="noopener">Agendar atendimento</a>
                 </div>
