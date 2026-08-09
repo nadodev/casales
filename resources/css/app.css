@@ -146,6 +146,24 @@ body.menu-open { overflow: hidden; }
 .location-section {
   background-image: radial-gradient(circle at 8% 15%, rgba(155,124,56,.22), transparent 28%);
 }
+.integrated-hero { @apply relative; background: radial-gradient(circle at 92% 18%, rgba(233,221,174,.42), transparent 30%); }
+.integrated-hero::before { content: ''; width: 30rem; height: 30rem; right: -12rem; top: -16rem; @apply pointer-events-none absolute rounded-full border border-gold-600/20; }
+.integrated-hero-visual { min-height: 25rem; @apply relative overflow-hidden rounded-[2rem] bg-green-900 shadow-2xl; }
+.integrated-hero-visual > img { min-height: 25rem; }
+.integrated-orbit { min-height: 25rem; @apply relative grid place-items-center overflow-hidden text-white; background: radial-gradient(circle at center, rgba(155,124,56,.38), transparent 31%); }
+.integrated-orbit::before,
+.integrated-orbit::after { content: ''; @apply absolute rounded-full border border-beige-300/25; }
+.integrated-orbit::before { width: 18rem; height: 18rem; }
+.integrated-orbit::after { width: 11rem; height: 11rem; }
+.integrated-orbit strong { @apply z-10 grid h-24 w-24 place-items-center rounded-full bg-beige-300 font-display text-xl text-green-900 shadow-xl; }
+.integrated-orbit span { @apply absolute z-10 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm; }
+.integrated-orbit span:nth-child(1) { top: 12%; left: 9%; }
+.integrated-orbit span:nth-child(2) { top: 24%; right: 7%; }
+.integrated-orbit span:nth-child(3) { bottom: 12%; left: 18%; }
+.integrated-step { @apply relative overflow-hidden rounded-2xl border border-green-900/10 bg-surface p-7 transition hover:-translate-y-1 hover:border-gold-600/40 hover:shadow-soft; }
+.integrated-step-number { @apply mb-10 block font-display text-4xl font-semibold text-gold-600/70; }
+.integrated-step::after { content: ''; @apply absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-beige-300/30; }
+.integrated-cta { @apply flex flex-col items-start justify-between gap-8 rounded-[2rem] bg-green-900 p-8 text-white shadow-2xl md:flex-row md:items-center md:p-12; background-image: radial-gradient(circle at 90% 20%, rgba(155,124,56,.28), transparent 32%); }
 .map-frame { @apply overflow-hidden rounded-2xl border-4 border-white/10 bg-white shadow-soft; }
 .map-frame iframe { @apply block h-80 w-full border-0 md:h-96; }
 .card { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }

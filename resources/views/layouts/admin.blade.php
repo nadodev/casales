@@ -18,6 +18,7 @@
         <nav class="card h-fit" aria-label="Administração">
             <a class="admin-link" href="{{ route('admin.dashboard') }}">Visão geral</a>
             <a class="admin-link" href="{{ route('admin.treatments.index') }}">Tratamentos</a>
+            <a class="admin-link" href="{{ route('admin.integrated-care.edit') }}">Cuidado Integrado</a>
             <a class="admin-link" href="{{ route('admin.professionals.index') }}">Profissionais</a>
             <a class="admin-link" href="{{ route('admin.about.edit') }}">Nossa História</a>
             <a class="admin-link" href="{{ route('admin.testimonials.index') }}">Avaliações</a>

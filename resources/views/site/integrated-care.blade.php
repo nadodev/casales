@@ -1,6 +1,63 @@
 @extends('layouts.site')
-@section('title','Cuidado Integrado | Casale Saúde Integrada')
+@section('title', $page->title.' | Casale Saúde Integrada')
+@section('description', $page->seo_description ?: $page->intro)
 @section('content')
-<section class="section"><div class="container-site grid items-center gap-12 lg:grid-cols-2"><div><span class="eyebrow">Cuidado Integrado</span><h1>Você por inteiro, no centro do cuidado.</h1><p class="mt-6 text-lg text-muted">Na Casale, diferentes áreas da saúde conversam para compreender suas necessidades de forma ampla, respeitosa e individual.</p><a class="btn-primary mt-8" href="{{ route('contact') }}">Agendar uma avaliação</a></div><div class="rounded-2xl bg-green-900 p-8 text-white shadow-soft"><h2 class="text-3xl">Como funciona</h2><div class="mt-7 grid gap-6">@foreach([['Escuta inicial','Entendemos sua rotina, queixas e objetivos.'],['Olhar compartilhado','Quando necessário, nossos profissionais alinham conhecimentos e possibilidades.'],['Plano individual','O cuidado é definido de acordo com você e acompanhado ao longo do tempo.']] as [$title,$text])<div class="border-t border-white/20 pt-5"><h3>{{ $title }}</h3><p class="mt-2 text-white/75">{{ $text }}</p></div>@endforeach</div></div></div></section>
-<section class="section bg-white"><div class="container-site"><span class="eyebrow">Áreas conectadas</span><h2>Uma equipe, diferentes perspectivas</h2><div class="mt-10 grid gap-6 md:grid-cols-3">@foreach($menuTreatments as $t)<a class="card" href="{{ route('treatments.show',$t) }}"><h3>{{ $t->name }}</h3><p class="mt-3 text-muted">{{ $t->excerpt }}</p><span class="mt-5 block font-bold text-green-700">Conhecer →</span></a>@endforeach</div></div></section>
+<section class="integrated-hero section overflow-hidden">
+    <div class="container-site grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+        <div class="relative z-10">
+            <span class="eyebrow">{{ $page->hero_kicker }}</span>
+            <h1>{{ $page->title }}</h1>
+            <p class="mt-6 max-w-2xl text-lg text-muted">{{ $page->intro }}</p>
+            <div class="mt-8 flex flex-wrap gap-3"><a class="btn-primary" href="{{ route('contact') }}">{{ $page->cta_label }}</a><a class="btn-secondary" href="#como-funciona">Entenda como funciona</a></div>
+        </div>
+        <div class="integrated-hero-visual">
+            @if($page->cover_image_path)
+                <img src="{{ route('media', ['path' => $page->cover_image_path]) }}" alt="Cuidado integrado na Casale Saúde" class="h-full w-full object-cover">
+            @else
+                <div class="integrated-orbit" aria-hidden="true"><span>Odontologia</span><span>Fisioterapia</span><span>Acupuntura</span><strong>Você</strong></div>
+            @endif
+        </div>
+    </div>
+</section>
+
+<section id="como-funciona" class="section bg-white">
+    <div class="container-site">
+        <div class="max-w-2xl"><span class="eyebrow">Jornada de cuidado</span><h2>{{ $page->how_title }}</h2></div>
+        <div class="mt-10 grid gap-5 lg:grid-cols-3">
+            @foreach($page->steps ?? [] as $index => $step)
+                <article class="integrated-step">
+                    <span class="integrated-step-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                    <h3>{{ $step['title'] ?? '' }}</h3>
+                    <p class="mt-3 text-muted">{{ $step['text'] ?? '' }}</p>
+                </article>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="section bg-green-900 text-white">
+    <div class="container-site grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+        <div><span class="eyebrow text-beige-300">{{ $page->section_kicker }}</span><h2>{{ $page->section_title }}</h2><p class="mt-5 text-white/70">{{ $page->section_intro }}</p></div>
+        <div class="grid gap-4 sm:grid-cols-2">
+            @foreach($page->benefits ?? [] as $benefit)
+                <article class="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-sm"><span class="mb-5 block h-px w-10 bg-gold-600"></span><h3>{{ $benefit['title'] ?? '' }}</h3><p class="mt-3 text-white/70">{{ $benefit['text'] ?? '' }}</p></article>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container-site">
+        <div class="max-w-2xl"><span class="eyebrow">Áreas conectadas</span><h2>Uma equipe, diferentes perspectivas</h2><p class="mt-4 text-muted">Conheça as especialidades que podem conversar entre si quando o seu caso se beneficia de uma visão compartilhada.</p></div>
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+            @foreach($menuTreatments as $t)
+                <a class="card group" href="{{ route('treatments.show', $t) }}"><span class="eyebrow">{{ $t->category }}</span><h3>{{ $t->name }}</h3><p class="mt-3 text-muted">{{ $t->excerpt }}</p><span class="mt-6 block font-bold text-green-700 transition group-hover:translate-x-1">Conhecer →</span></a>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="pb-16 md:pb-24">
+    <div class="container-site"><div class="integrated-cta"><div><span class="eyebrow text-beige-300">Próximo passo</span><h2>{{ $page->cta_title }}</h2><p class="mt-4 max-w-2xl text-white/75">{{ $page->cta_text }}</p></div><a class="btn bg-white text-green-900 hover:bg-beige-100" href="{{ route('contact') }}">{{ $page->cta_label }}</a></div></div>
+</section>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\Treatment;
 use App\Models\AboutPage;
 use App\Models\Testimonial;
 use App\Models\ContactMessage;
+use App\Models\IntegratedCarePage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -51,7 +52,14 @@ class SiteController extends Controller
 
         return view('site.about', array_merge($this->shared(), compact('about')));
     }
-    public function integratedCare() { return view('site.integrated-care', $this->shared()); }
+    public function integratedCare()
+    {
+        $page = IntegratedCarePage::first();
+        abort_if($page && ! $page->is_active, 404);
+        abort_unless($page, 404);
+
+        return view('site.integrated-care', array_merge($this->shared(), compact('page')));
+    }
     public function contact()
     {
         $formStartedAt = time();

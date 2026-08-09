@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{AboutPageController,AuthController,ContactMessageController,DashboardController,ProfessionalController,SocialLinkController,TestimonialController,TreatmentController};
+use App\Http\Controllers\Admin\{AboutPageController,AuthController,ContactMessageController,DashboardController,IntegratedCarePageController,ProfessionalController,SocialLinkController,TestimonialController,TreatmentController};
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +27,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('social-links', SocialLinkController::class)->except('show');
     Route::get('about', [AboutPageController::class, 'edit'])->name('about.edit');
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
+    Route::get('integrated-care', [IntegratedCarePageController::class, 'edit'])->name('integrated-care.edit');
+    Route::put('integrated-care', [IntegratedCarePageController::class, 'update'])->name('integrated-care.update');
     Route::delete('about/{aboutPage}/photos/{photo}', [AboutPageController::class, 'destroyPhoto'])->name('about.photos.destroy');
     Route::resource('testimonials', TestimonialController::class)->except('show');
     Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show', 'destroy']);
