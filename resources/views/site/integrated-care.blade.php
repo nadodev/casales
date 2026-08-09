@@ -14,7 +14,24 @@
             @if($page->cover_image_path)
                 <img src="{{ route('media', ['path' => $page->cover_image_path]) }}" alt="Cuidado integrado na Casale Saúde" class="h-full w-full object-cover">
             @else
-                <div class="integrated-orbit" aria-hidden="true"><span>Odontologia</span><span>Fisioterapia</span><span>Acupuntura</span><strong>Você</strong></div>
+                @php
+                    $orbitTreatments = $menuTreatments->take(7)->values();
+                    $hiddenTreatments = max(0, $menuTreatments->count() - $orbitTreatments->count());
+                    $orbitItems = $orbitTreatments->map(fn ($treatment) => $treatment->name);
+                    if ($hiddenTreatments > 0) $orbitItems->push('+'.$hiddenTreatments.' '.($hiddenTreatments === 1 ? 'área' : 'áreas'));
+                    $orbitCount = max(1, $orbitItems->count());
+                @endphp
+                <div class="integrated-orbit" aria-label="Áreas conectadas ao cuidado integrado">
+                    @foreach($orbitItems as $index => $label)
+                        @php
+                            $angle = deg2rad(-90 + (($index * 360) / $orbitCount));
+                            $x = 50 + (35 * cos($angle));
+                            $y = 50 + (35 * sin($angle));
+                        @endphp
+                        <span style="--orbit-x: {{ number_format($x, 2, '.', '') }}%; --orbit-y: {{ number_format($y, 2, '.', '') }}%;">{{ $label }}</span>
+                    @endforeach
+                    <strong>Você</strong>
+                </div>
             @endif
         </div>
     </div>

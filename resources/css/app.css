@@ -156,10 +156,7 @@ body.menu-open { overflow: hidden; }
 .integrated-orbit::before { width: 18rem; height: 18rem; }
 .integrated-orbit::after { width: 11rem; height: 11rem; }
 .integrated-orbit strong { @apply z-10 grid h-24 w-24 place-items-center rounded-full bg-beige-300 font-display text-xl text-green-900 shadow-xl; }
-.integrated-orbit span { @apply absolute z-10 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm; }
-.integrated-orbit span:nth-child(1) { top: 12%; left: 9%; }
-.integrated-orbit span:nth-child(2) { top: 24%; right: 7%; }
-.integrated-orbit span:nth-child(3) { bottom: 12%; left: 18%; }
+.integrated-orbit span { left: var(--orbit-x); top: var(--orbit-y); max-width: 10rem; transform: translate(-50%, -50%); @apply absolute z-10 truncate rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm; }
 .integrated-step { @apply relative overflow-hidden rounded-2xl border border-green-900/10 bg-surface p-7 transition hover:-translate-y-1 hover:border-gold-600/40 hover:shadow-soft; }
 .integrated-step-number { @apply mb-10 block font-display text-4xl font-semibold text-gold-600/70; }
 .integrated-step::after { content: ''; @apply absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-beige-300/30; }
