@@ -30,4 +30,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('about/{aboutPage}/photos/{photo}', [AboutPageController::class, 'destroyPhoto'])->name('about.photos.destroy');
     Route::resource('testimonials', TestimonialController::class)->except('show');
     Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show', 'destroy']);
+    Route::get('message-notifications', [ContactMessageController::class, 'notifications'])->name('message-notifications');
 });

@@ -9,7 +9,17 @@ class ContactMessageController extends Controller
 {
     public function index()
     {
-        return view('admin.contact-messages.index', ['items' => ContactMessage::latest()->paginate(20)]);
+        return view('admin.contact-messages.index', [
+            'items' => ContactMessage::latest()->paginate(10),
+            'unreadMessages' => ContactMessage::whereNull('read_at')->count(),
+        ]);
+    }
+
+    public function notifications()
+    {
+        return response()->json([
+            'unread' => ContactMessage::whereNull('read_at')->count(),
+        ]);
     }
 
     public function show(ContactMessage $contactMessage)

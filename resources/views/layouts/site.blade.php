@@ -39,8 +39,8 @@
                                     class="block rounded-lg px-4 py-3 font-bold text-green-700 hover:bg-beige-100"
                                     href="{{ route('treatments') }}">Ver todos</a></div>
                         </div>
-                    </div><a class="nav-link" href="{{ route('contact') }}">Contato</a><a class="btn-primary menu-cta"
-                        href="https://wa.me/551934242812" target="_blank" rel="noopener">Agendar atendimento</a>
+                    </div><a class="nav-link" href="{{ route('contact') }}">Contato</a>@if($whatsappUrl)<a class="btn-primary menu-cta"
+                        href="{{ $whatsappUrl }}" target="_blank" rel="noopener">Agendar atendimento</a>@endif
                 </div>
             </nav>
         </div>
@@ -58,15 +58,19 @@
                     55<br>Piracicaba — SP</p>
             </div>
             <div>
-                <h2 class="text-xl">Acompanhe</h2>@foreach($socialLinks as $social)<a
-                    class="mt-3 block text-beige-300 hover:text-white" href="{{ $social->url }}" target="_blank"
-                rel="noopener">{{ $social->label }}</a>@endforeach<div class="mt-5 text-sm text-white/60"><a
+                <h2 class="text-xl">Acompanhe</h2>
+                <div class="mt-4 flex flex-wrap gap-3">@foreach($socialLinks as $social)<a
+                    class="social-icon-link" href="{{ $social->url }}" target="_blank" rel="noopener"
+                    aria-label="{{ $social->label }}" title="{{ $social->label }}">@include('site.partials.social-icon', ['platform' => $social->platform])</a>@endforeach</div><div class="mt-5 text-sm text-white/60"><a
                         href="{{ route('privacy') }}">Privacidade</a> · <a href="{{ route('terms') }}">Termos</a></div>
             </div>
         </div>
         <p class="container-site mt-10 border-t border-white/10 pt-6 text-sm text-white/55">© <span
                 data-current-year>{{ date('Y') }}</span> Casale Saúde Integrada.</p>
     </footer>
+    @if($whatsappUrl)<a class="whatsapp-float" href="{{ $whatsappUrl }}" target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" title="Conversar pelo WhatsApp">
+        @include('site.partials.social-icon', ['platform' => 'WhatsApp'])
+    </a>@endif
 </body>
 
 </html>

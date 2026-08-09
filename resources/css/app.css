@@ -29,6 +29,7 @@
   .admin-form label { @apply font-semibold text-ink; }
 }
 body.menu-open { overflow: hidden; }
+.contact-honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 .site-header.scrolled { box-shadow: 0 6px 24px rgba(13,73,59,.1); }
 .site-header .container-site { min-height: 6.5rem; }
 .site-header img {
@@ -70,6 +71,16 @@ body.menu-open { overflow: hidden; }
 .treatment-menu { @apply mb-2 rounded-xl bg-surface p-2; }
 .treatment-menu a { @apply block rounded-lg px-4 py-3 text-sm font-semibold text-green-900 transition hover:bg-white; }
 .menu-cta { @apply mt-2 w-full; }
+.social-icon-link {
+  @apply grid h-11 w-11 place-items-center rounded-full border border-white/20 text-beige-300 transition hover:-translate-y-0.5 hover:border-beige-300 hover:bg-white/10 hover:text-white;
+}
+.social-icon-link svg,
+.whatsapp-float svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.social-icon-link .social-icon-fill { fill: currentColor; stroke: none; }
+.whatsapp-float {
+  @apply fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:-translate-y-1 hover:scale-105 focus-visible:ring-white;
+}
+.whatsapp-float svg { width: 1.75rem; height: 1.75rem; stroke-width: 1.7; }
 .site-header [data-submenu-button] > span {
   width: .55rem;
   height: .55rem;

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SocialLink extends Model
 {
     use HasFactory;
-    protected $fillable = ['platform', 'label', 'url', 'is_active', 'sort_order'];
+    protected $fillable = ['platform', 'label', 'phone', 'url', 'is_active', 'sort_order'];
     protected function casts(): array { return ['is_active' => 'boolean']; }
 }
