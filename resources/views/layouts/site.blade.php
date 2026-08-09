@@ -16,19 +16,20 @@
 </head>
 
 <body><a class="sr-only focus:not-sr-only" href="#conteudo">Ir para o conteúdo</a>
-    <header class="site-header sticky top-0 z-50 border-b border-green-900/10 bg-surface/95">
+    <header class="site-header sticky top-0 z-50 border-b border-green-900/10 bg-surface/95 backdrop-blur-md">
         <div class="container-site flex min-h-20 items-center justify-between"><a href="{{ route('home') }}"
                 aria-label="Casale Saúde Integrada — início"><img src="{{ asset('images/logo-casale.png') }}"
                     width="190" height="60" alt="Casale Saúde Integrada" class="h-14 w-auto"></a><button
-                class="rounded-lg p-3 lg:hidden" data-menu-button aria-expanded="false" aria-controls="main-nav"><span
-                    class="sr-only">Abrir menu</span>☰</button>
-            <nav id="main-nav" class="hidden lg:block" aria-label="Principal">
-                <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-7"><a class="nav-link" href="{{ route('about') }}">Nossa história</a><a class="nav-link"
+                class="menu-toggle lg:hidden" data-menu-button aria-expanded="false" aria-controls="main-nav"><span
+                    class="sr-only">Abrir menu</span><span class="menu-toggle-lines" aria-hidden="true"></span></button>
+            <button class="menu-backdrop hidden lg:hidden" data-menu-backdrop type="button" aria-label="Fechar menu"></button>
+            <nav id="main-nav" class="main-nav hidden lg:block" aria-label="Principal">
+                <div class="main-nav-inner"><a class="nav-link" href="{{ route('about') }}">Nossa história</a><a class="nav-link"
                         href="{{ route('professionals') }}">Profissionais</a>
-                    <div class="relative"><button class="nav-link flex items-center" data-submenu-button
+                    <div class="treatment-nav"><button class="nav-link flex w-full items-center justify-between lg:w-auto lg:justify-start" data-submenu-button
                             aria-expanded="false" aria-controls="treatment-menu">Tratamentos <span>⌄</span></button>
                         <div id="treatment-menu" hidden
-                            class="absolute right-0 top-full w-64 rounded-xl border bg-white p-2 shadow-soft">
+                            class="treatment-menu">
                             @foreach($menuTreatments as $menuTreatment)<a
                                 class="block rounded-lg px-4 py-3 hover:bg-beige-100"
                             href="{{ route('treatments.show', $menuTreatment) }}">{{ $menuTreatment->name }}</a>@endforeach<a
@@ -38,7 +39,7 @@
                                     class="block rounded-lg px-4 py-3 font-bold text-green-700 hover:bg-beige-100"
                                     href="{{ route('treatments') }}">Ver todos</a></div>
                         </div>
-                    </div><a class="nav-link" href="{{ route('contact') }}">Contato</a><a class="btn-primary"
+                    </div><a class="nav-link" href="{{ route('contact') }}">Contato</a><a class="btn-primary menu-cta"
                         href="https://wa.me/551934242812" target="_blank" rel="noopener">Agendar atendimento</a>
                 </div>
             </nav>

@@ -38,6 +38,38 @@ body.menu-open { overflow: hidden; }
   max-width: none;
   object-fit: contain;
 }
+.menu-toggle {
+  @apply relative z-[70] grid h-12 w-12 place-items-center rounded-xl border border-green-900/15 bg-white text-green-900 shadow-sm transition hover:border-green-900/30 hover:bg-beige-100;
+}
+.menu-toggle-lines,
+.menu-toggle-lines::before,
+.menu-toggle-lines::after {
+  width: 1.25rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.menu-toggle-lines { @apply relative block; }
+.menu-toggle-lines::before,
+.menu-toggle-lines::after { content: ''; @apply absolute left-0; }
+.menu-toggle-lines::before { transform: translateY(-.4rem); }
+.menu-toggle-lines::after { transform: translateY(.4rem); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-lines { background: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-toggle-lines::before { transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-lines::after { transform: rotate(-45deg); }
+.menu-backdrop {
+  @apply fixed inset-0 top-[5.75rem] z-40 bg-green-900/35 backdrop-blur-[2px];
+}
+.main-nav {
+  @apply fixed inset-x-4 top-[6.5rem] z-[60] max-h-[calc(100dvh-7.5rem)] overflow-y-auto rounded-2xl border border-green-900/10 bg-white p-3 shadow-2xl;
+}
+.main-nav-inner { @apply flex flex-col gap-1; }
+.main-nav .nav-link { @apply w-full rounded-xl px-4 py-3.5 text-left text-base after:hidden hover:bg-beige-100; }
+.treatment-nav { @apply rounded-xl; }
+.treatment-menu { @apply mb-2 rounded-xl bg-surface p-2; }
+.treatment-menu a { @apply block rounded-lg px-4 py-3 text-sm font-semibold text-green-900 transition hover:bg-white; }
+.menu-cta { @apply mt-2 w-full; }
 .site-header [data-submenu-button] > span {
   width: .55rem;
   height: .55rem;
@@ -66,6 +98,7 @@ body.menu-open { overflow: hidden; }
 }
 #mobile-treatments a { @apply block rounded-lg border-l-2 border-transparent px-3 py-3 text-sm font-semibold text-green-900 hover:border-gold-600 hover:bg-beige-100; }
 #desktop-treatments[hidden], #mobile-treatments[hidden] { display: none; }
+.treatment-menu[hidden] { display: none; }
 .accordion-panel[hidden] { display: none; }
 .differentials {
   @apply relative overflow-hidden;
@@ -126,6 +159,19 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 639px) {
   .site-header .container-site { min-height: 5.75rem; }
   .site-header img { width: 12.5rem; max-height: 4rem; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .main-nav { @apply left-auto right-8 w-[24rem]; }
+}
+@media (min-width: 1024px) {
+  .main-nav { position: static; max-height: none; overflow: visible; @apply rounded-none border-0 bg-transparent p-0 shadow-none; }
+  .main-nav-inner { @apply flex-row items-center gap-7; }
+  .main-nav .nav-link { @apply w-auto rounded-none px-0 py-3 text-sm after:block hover:bg-transparent; }
+  .treatment-nav { @apply relative; }
+  .treatment-menu { top: calc(100% + .55rem); width: 17rem; @apply absolute right-0 mb-0 overflow-hidden rounded-xl border border-green-900/10 bg-white p-2 shadow-soft; }
+  .treatment-menu::before { content: ''; @apply absolute left-0 top-0 h-0.5 w-full bg-gold-600; }
+  .treatment-menu a { @apply border-l-2 border-transparent hover:border-gold-600 hover:bg-beige-100; }
+  .menu-cta { @apply mt-0 w-auto; }
 }
 h1.text-5xl { font-size: 2.25rem; line-height: 1.15; }
 p.text-5xl { font-size: 2.5rem; line-height: 1; }
